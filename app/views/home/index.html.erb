@@ -1,5 +1,10 @@
 <ul>
   <% @cards.each do |card| %>
-    <li><%= card.title %></li>
+    <li><%= card.title %> (<%= card.items.count %>)</li>
+    <ul>
+      <% card.items.each do |item| %>
+        <li><%= item.title %></li>
+      <% end %>
+    </ul>
   <% end %>
 </ul>
