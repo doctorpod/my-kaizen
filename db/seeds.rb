@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Card.create(title: 'Exercises', goal: 10)
+Card.create(title: 'Calories', goal: 10)
+Card.create(title: 'Nutrition', goal: 10)
+Card.create(title: 'Social', goal: 10)
