@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.integer :min
       t.integer :max
       t.integer :period
-      t.integer :score
+      t.float :score, default: 1.0
       t.integer :card_id
 
       t.timestamps
