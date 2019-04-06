@@ -1,10 +1,11 @@
-<ul>
-  <% @cards.each do |card| %>
-    <li><%= card.title %> (<%= card.items.count %>)</li>
-    <ul>
-      <% card.items.each do |item| %>
-        <li><%= item.title %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</ul>
+<% @cards.each do |card| %>
+  <div class="card">
+    <div class='card-body'>
+      <h5 class='card-title'><%= card.title %></h5>
+      <ul>
+        <% card.items.each do |item| %>
+          <li><%= item.title %> <span class="badge badge-pill badge-primary">2</span></li>
+        <% end %>
+      </div>
+    </div>
+<% end %>
