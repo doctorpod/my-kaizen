@@ -1,11 +1,10 @@
 <% @cards.each do |card| %>
-  <div class="card">
+  <div class="card m-3">
     <div class='card-body'>
-      <h5 class='card-title'><%= card.title %></h5>
-      <ul>
-        <% card.items.each do |item| %>
-          <li><%= item.title %> <span class="badge badge-pill badge-primary">2</span></li>
-        <% end %>
-      </div>
+      <h2 class='card-title'><%= card.title %></h2>
+      <% card.items.each do |item| %>
+        <button type="button" class="btn btn-<%= item.score > 0.0 ? 'primary' : 'danger' %> m-1"><%= item.title %></button>
+      <% end %>
     </div>
+  </div>
 <% end %>
