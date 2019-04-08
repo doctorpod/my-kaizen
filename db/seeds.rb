@@ -76,7 +76,7 @@ card = Card.create(title: 'Social', goal: 10)
   { title: 'Help someone', score: 1 },
   { title: '1 to 1 with a friend', score: 1 },
   { title: 'Read', score: 1 },
-  { title: 'Post tweet/FB', score: 1 }
+  { title: 'Meditate 5m', score: 1 }
 ].each do |item|
   card.items.create(item)
 end
