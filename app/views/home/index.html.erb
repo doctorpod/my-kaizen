@@ -6,7 +6,7 @@
         <div data-controller="item" data-item-id="<%= item.id %>" class="d-inline">
           <button data-action="click->item#check" type="button" class="m-1 btn btn-<%= item.score > 0.0 ? 'primary' : 'danger' %>">
             <%= item.title %>
-            (<span data-target="item.count">0</span>)
+            (<span data-target="item.count"><%= item.checks.count %></span>)
           </button>
         </div>
       <% end %>

@@ -80,3 +80,9 @@ card = Card.create(title: 'Social', goal: 10)
 ].each do |item|
   card.items.create(item)
 end
+
+Item.all.each do |item|
+  Random.rand(10).times do
+    item.checks.create
+  end
+end
