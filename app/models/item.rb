@@ -1,4 +1,4 @@
 class Item < ApplicationRecord
   belongs_to :card
-  has_many :checks
+  has_many :checks, dependent: :destroy
 end
