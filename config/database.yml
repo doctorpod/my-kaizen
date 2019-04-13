@@ -3,19 +3,18 @@ defaults: &defaults
   encoding: utf8
   reconnect: false
   pool: 5
-  host: 127.0.0.1
-  username: root
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASS'] %>
 
 development:
   <<: *defaults
-  database: my_kaisen_development
+  database: my_kaizen_development
 
 test:
   <<: *defaults
-  database: my_kaisen_test
+  database: my_kaizen_test
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  pool: 5
+  <<: *defaults
+  database: my_kaizen_production
