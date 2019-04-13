@@ -17,4 +17,4 @@ test:
 
 production:
   <<: *defaults
-  database: my_kaizen_production
+  database: my_kaisen_production
