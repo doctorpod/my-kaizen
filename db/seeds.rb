@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-card = Card.create(title: 'Exercises', goal: 10)
+card = Card.create(title: 'Exercise', goal: 10)
 [
   { title: 'Eyes', score: 1 },
   { title: 'Compensatory', score: 1 },
@@ -29,7 +29,7 @@ card = Card.create(title: 'Exercises', goal: 10)
   card.items.create(item)
 end
 
-card = Card.create(title: 'Nutrition', goal: 10)
+card = Card.create(title: 'Eat healthy', goal: 10)
 [
   { title: 'Beans', score: 1 },
   { title: 'Cruc', score: 1 },
@@ -41,6 +41,7 @@ card = Card.create(title: 'Nutrition', goal: 10)
   { title: 'Nuts/seeds', score: 1 },
   { title: 'Herbs/sp', score: 1 },
   { title: 'Whole gr', score: 1 },
+  { title: '12hr fast', score: 1 },
   { title: 'Vit B12', score: 0.5 },
   { title: 'Vit D', score: 0.5 },
   { title: 'Bev (250ml)', score: 0.25 },
@@ -54,21 +55,22 @@ card = Card.create(title: 'Nutrition', goal: 10)
   card.items.create(item)
 end
 
-card = Card.create(title: 'Calories', goal: 10)
+card = Card.create(title: 'Maintain calorie deficit', goal: 0)
 [
-  { title: 'BJJ class 1h', score: -350 },
-  { title: 'Phys job 30 min', score: -150 },
-  { title: 'Run 10 min', score: -130 },
-  { title: 'Gen act 25 min', score: -105 },
-  { title: 'Biscuit/Wine', score: 100 },
-  { title: 'Takeaway/Rest', score: 300 },
-  { title: 'Snack', score: 350 },
-  { title: 'Sweet', score: 450 }
+  { title: 'BJJ class 1h', score: 3.50 },
+  { title: 'Phys job 30 min', score: 1.50 },
+  { title: 'Run 10 min', score: 1.30 },
+  { title: 'Gen act 25 min', score: 1.05 },
+
+  { title: 'Biscuit/Wine', score: -1.00 },
+  { title: 'Takeaway/Rest', score: -3.00 },
+  { title: 'Snack', score: -3.50 },
+  { title: 'Sweet', score: -4.50 }
 ].each do |item|
   card.items.create(item)
 end
 
-card = Card.create(title: 'Social', goal: 10)
+card = Card.create(title: 'Be social/Be smart', goal: 10)
 [
   { title: 'Speak to stranger face to face', score: 1 },
   { title: 'Schedule social event', score: 1 },

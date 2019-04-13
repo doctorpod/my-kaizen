@@ -3,11 +3,17 @@ class CheckController < ApplicationController
 
   # POST /checks
   def create
-    check = Check.create!(check_params)
+    item = Item.find(params[:item_id])
+    item.create_check
     render json: {
-      card_id: check.item.card_id,
-      card_total: check.item.card.total,
-      item_count: check.item.checks.count
+      card: {
+        id: item.card_id,
+        total: {
+          today: item.card.total_today,
+          yesterday: item.card.total_yesterday
+        },
+      },
+      item_count: item.count_today
     },
     status: :created
   end

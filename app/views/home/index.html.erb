@@ -2,12 +2,15 @@
   <div class="card m-3">
     <div class='card-body'>
       <h1 class='card-title'><%= card.title %></h1>
-      <h4 id="card-<%= card.id %>-total" class="card-subtitle text-muted"><%= card.total %></h4>
+      <h4>
+        <span id="card-<%= card.id %>-total-yesterday" class="card-subtitle text-muted"><%= card.total_yesterday %></span>
+        <span id="card-<%= card.id %>-total-today" class="card-subtitle text-muted"><%= card.total_today %></span>
+      </h4>
       <% card.items.each do |item| %>
         <div data-controller="item" data-item-id="<%= item.id %>" class="d-inline">
           <button data-action="click->item#check" type="button" class="m-1 btn btn-<%= item.score > 0.0 ? 'primary' : 'danger' %>">
             <%= item.title %>
-            (<span data-target="item.count"><%= item.checks.count %></span>)
+            (<span data-target="item.count"><%= item.count_today %></span>)
           </button>
         </div>
       <% end %>

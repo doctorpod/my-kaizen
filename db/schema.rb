@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_203844) do
+ActiveRecord::Schema.define(version: 2019_04_11_193437) do
 
   create_table "cards", force: :cascade do |t|
     t.string "title"
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(version: 2019_04_08_203844) do
     t.integer "max"
     t.integer "period"
     t.float "score", default: 1.0
+    t.integer "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "period_summaries", force: :cascade do |t|
+    t.date "date"
+    t.integer "year"
+    t.integer "month"
+    t.integer "week"
+    t.integer "count"
+    t.float "score"
+    t.integer "item_id"
     t.integer "card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
