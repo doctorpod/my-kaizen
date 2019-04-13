@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_04_11_193437) do
 
-  create_table "cards", force: :cascade do |t|
+  create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "goal"
@@ -21,14 +21,14 @@ ActiveRecord::Schema.define(version: 2019_04_11_193437) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "checks", force: :cascade do |t|
+  create_table "checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "comment"
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "items", force: :cascade do |t|
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "min"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_193437) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "period_summaries", force: :cascade do |t|
+  create_table "period_summaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "date"
     t.integer "year"
     t.integer "month"
