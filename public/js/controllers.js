@@ -1,6 +1,43 @@
 const application = window.Stimulus.Application.start();
 
 application.register(
+  "deck",
+  class extends window.Stimulus.Controller {
+    connect() {
+      this.startRefreshing();
+    }
+
+    disconnect() {
+      this.stopRefreshing();
+    }
+
+    startRefreshing() {
+      this.refreshTimer = setInterval(() => {
+        this.checkForRefresh();
+      }, 15000);
+    }
+
+    checkForRefresh() {
+      const d = new Date();
+      const today = d.toLocaleDateString();
+
+      console.log("deck checking...");
+
+      if (today !== this.data.get("refreshed")) {
+        this.data.set("refreshed", today);
+        console.log("date has changed fetching a refresh TODO");
+      }
+    }
+
+    stopRefreshing() {
+      if (this.refreshTimer) {
+        clearInterval(this.refreshTimer);
+      }
+    }
+  }
+);
+
+application.register(
   "item",
   class extends window.Stimulus.Controller {
     static get targets() {
