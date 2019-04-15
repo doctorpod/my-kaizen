@@ -6,11 +6,10 @@ RSpec.describe 'Checks API', type: :request do
     let(:item) { card.items.create!(description: 'Foo bar') }
 
     let(:attributes) do
-      { item_id: item.id }
+      { item_id: item.id, client_date: '15/04/2019' }
     end
 
     before {
-      puts Item.first
       post '/checks', params: attributes
     }
 

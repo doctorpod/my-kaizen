@@ -4,7 +4,7 @@ class CheckController < ApplicationController
   # POST /checks
   def create
     item = Item.find(params[:item_id])
-    item.create_check
+    item.create_check(params[:client_date])
     render json: {
       card: {
         id: item.card_id,
@@ -22,6 +22,6 @@ class CheckController < ApplicationController
 
   def check_params
     # whitelist params
-    params.permit(:item_id)
+    params.permit(:item_id, :client_date)
   end
 end

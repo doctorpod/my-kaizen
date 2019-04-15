@@ -4,11 +4,12 @@ RSpec.describe Item, type: :model do
   subject { card.items.create!(title: 'Foo', score: 0.5) }
 
   let(:card) { Card.create!(title: 'Bobbins') }
+  let(:client_date) { '15/04/2019' }
 
   describe '#create_check' do
     before do
       subject.checks.create!
-      subject.create_check
+      subject.create_check(client_date)
     end
 
     it 'creates a check' do
@@ -20,6 +21,10 @@ RSpec.describe Item, type: :model do
 
       it 'one is created' do
         expect(subject.period_summaries.count).to eq(1)
+      end
+
+      it 'has the client date' do
+        expect(period_summary.date).to eq(Date.parse(client_date))
       end
 
       it 'has a count of 2' do
@@ -36,7 +41,7 @@ RSpec.describe Item, type: :model do
     end
 
     context 'subsequent invocation on same day' do
-      before { subject.create_check }
+      before { subject.create_check(client_date) }
 
       describe 'period summary' do
         let(:period_summary) { subject.period_summaries.first }

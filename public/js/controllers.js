@@ -15,7 +15,10 @@ application.register(
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ item_id: item_id })
+        body: JSON.stringify({
+          item_id: item_id,
+          client_date: new Date().toLocaleDateString()
+        })
       })
         .then(response => response.json())
         .then(data => {
