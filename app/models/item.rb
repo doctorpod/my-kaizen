@@ -11,9 +11,9 @@ class Item < ApplicationRecord
     period_summaries.where(date: (Date.today-1)).first&.count || 0
   end
 
-  def create_check
+  def create_check(client_date)
     checks.create!
-    today = Date.today
+    today = Date.parse(client_date)
     count = count_on(today)
 
     existing_summary = period_summaries.where(date: today).first
