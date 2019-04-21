@@ -4,7 +4,7 @@ RSpec.describe Item, type: :model do
   subject { card.items.create!(title: 'Foo', score: 0.5) }
 
   let(:card) { Card.create!(title: 'Bobbins') }
-  let(:client_date) { '15/04/2019' }
+  let(:client_date) { Date.today.strftime("%d/%m/%Y") }
 
   describe '#create_check' do
     before do
