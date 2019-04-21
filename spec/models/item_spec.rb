@@ -4,16 +4,11 @@ RSpec.describe Item, type: :model do
   subject { card.items.create!(title: 'Foo', score: 0.5) }
 
   let(:card) { Card.create!(title: 'Bobbins') }
-  let(:client_date) { Date.today.strftime("%d/%m/%Y") }
+  let(:client_date) { '15/04/2019' }
 
-  describe '#create_check' do
+  describe '#add_check' do
     before do
-      subject.checks.create!
-      subject.create_check(client_date)
-    end
-
-    it 'creates a check' do
-      expect(Check.count).to eq(2)
+      subject.add_check(client_date)
     end
 
     describe 'period summary' do
@@ -27,12 +22,12 @@ RSpec.describe Item, type: :model do
         expect(period_summary.date).to eq(Date.parse(client_date))
       end
 
-      it 'has a count of 2' do
-        expect(period_summary.count).to eq(2)
+      it 'has a count of 1' do
+        expect(period_summary.count).to eq(1)
       end
 
-      it 'has a score of 1.0 (2*0.5)' do
-        expect(period_summary.score).to eq(1.0)
+      it 'has a score of 0.5 (1*0.5)' do
+        expect(period_summary.score).to eq(0.5)
       end
 
       it 'has correct card id' do
@@ -41,7 +36,7 @@ RSpec.describe Item, type: :model do
     end
 
     context 'subsequent invocation on same day' do
-      before { subject.create_check(client_date) }
+      before { subject.add_check(client_date) }
 
       describe 'period summary' do
         let(:period_summary) { subject.period_summaries.first }
@@ -50,12 +45,12 @@ RSpec.describe Item, type: :model do
           expect(subject.period_summaries.count).to eq(1)
         end
 
-        it 'has a count of 3' do
-          expect(period_summary.count).to eq(3)
+        it 'has a count of 2' do
+          expect(period_summary.count).to eq(2)
         end
 
-        it 'has a score of 1.5 (3*0.5)' do
-          expect(period_summary.score).to eq(1.5)
+        it 'has a score of 1.0 (2*0.5)' do
+          expect(period_summary.score).to eq(1.0)
         end
 
         it 'has correct card id' do

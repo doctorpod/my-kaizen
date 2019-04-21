@@ -13,8 +13,8 @@ RSpec.describe 'Checks API', type: :request do
       post '/checks', params: attributes
     }
 
-    it 'creates a check' do
-      expect(item.checks.count).to eq(1)
+    it 'creates a period summary' do
+      expect(item.period_summaries.count).to eq(1)
     end
 
     it 'returns status code 201' do
