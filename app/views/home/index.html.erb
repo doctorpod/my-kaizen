@@ -1,17 +1,27 @@
-<div data-controller="deck" data-deck-refreshed="<%= Time.now.strftime("%d/%m/%Y") %>">
+<div data-controller="cards" data-cards-refreshed="">
   <% @cards.each do |card| %>
-    <div class="card m-3">
+    <div class="card m-3" data-target="cards.card">
       <div class='card-body'>
         <h1 class='card-title'><%= card.title %></h1>
-        <h4>
-          <span id="card-<%= card.id %>-total-yesterday" class="card-subtitle text-muted"><%= card.total_yesterday %></span>
-          <span id="card-<%= card.id %>-total-today" class="card-subtitle text-muted"><%= card.total_today %></span>
-        </h4>
+        <table class="table table-sm">
+          <tr>
+            <td>Today</td>
+            <td class="text-right"><span id="card-<%= card.id %>-score-today" class="today card-subtitle text-muted"></span></td>
+          </tr>
+          <tr>
+            <td>Yesterday</td>
+            <td class="text-right"><span id="card-<%= card.id %>-score-yesterday" class="card-subtitle text-muted"></span></td>
+          </tr>
+          <tr>
+            <td>Recent average</td>
+            <td class="text-right"><span id="card-<%= card.id %>-recent-average" class="card-subtitle text-muted"></span></td>
+          </tr>
+        </table>
         <% card.items.each do |item| %>
           <div data-controller="item" data-item-id="<%= item.id %>" class="d-inline">
             <button data-action="click->item#check" type="button" class="m-1 btn btn-<%= item.score > 0.0 ? 'primary' : 'danger' %>">
               <%= item.title %>
-              (<span data-target="item.count"><%= item.count_today %></span>)
+              (<span data-target="item.count"></span>)
             </button>
           </div>
         <% end %>

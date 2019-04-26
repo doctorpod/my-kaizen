@@ -59,13 +59,16 @@ application.register(
       })
         .then(response => response.json())
         .then(data => {
-          this.countTarget.innerHTML = data.item_count;
+          this.countTarget.innerHTML = data.item.count;
           document.getElementById(
-            `card-${data.card.id}-total-today`
-          ).innerHTML = data.card.total.today;
+            `card-${data.item.card.id}-score-today`
+          ).innerHTML = data.item.card.scores.today;
           document.getElementById(
-            `card-${data.card.id}-total-yesterday`
-          ).innerHTML = data.card.total.yesterday;
+            `card-${data.item.card.id}-score-yesterday`
+          ).innerHTML = data.item.card.scores.yesterday;
+          document.getElementById(
+            `card-${data.item.card.id}-recent-average`
+          ).innerHTML = data.item.card.scores.recent_average;
         });
     }
   }

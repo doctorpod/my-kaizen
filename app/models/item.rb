@@ -2,12 +2,8 @@ class Item < ApplicationRecord
   belongs_to :card
   has_many :period_summaries, dependent: :destroy
 
-  def count_today
-    period_summaries.where(date: Date.today).first&.count || 0
-  end
-
-  def count_yesterday
-    period_summaries.where(date: (Date.today-1)).first&.count || 0
+  def count_for(date)
+    period_summaries.where(date: date).first&.count || 0
   end
 
   def add_check(client_date)
