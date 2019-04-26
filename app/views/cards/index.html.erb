@@ -5,22 +5,34 @@
       <table class="table table-sm">
         <tr>
           <td>Today</td>
-          <td class="text-right"><span id="card-<%= card.id %>-score-today" class="today card-subtitle text-muted"><%= card.score_today(@client_date) %></span></td>
+          <td class="text-right">
+            <span id="card-<%= card.id %>-score-today" class="today card-subtitle text-muted">
+              <%= card.score_today(@client_date) %>
+            </span>
+          </td>
         </tr>
         <tr>
           <td>Yesterday</td>
-          <td class="text-right"><span id="card-<%= card.id %>-score-yesterday" class="card-subtitle text-muted"><%= card.score_yesterday(@client_date) %></span></td>
+          <td class="text-right">
+            <span id="card-<%= card.id %>-score-yesterday" class="card-subtitle text-muted">
+              <%= card.score_yesterday(@client_date) %>
+            </span>
+          </td>
         </tr>
         <tr>
           <td>Recent average</td>
-          <td class="text-right"><span id="card-<%= card.id %>-recent-average" class="card-subtitle text-muted"><%= card.recent_average(@client_date) %></span></td>
+          <td class="text-right">
+            <span id="card-<%= card.id %>-recent-average" class="card-subtitle text-muted">
+              <%= card.recent_average(@client_date) %>
+            </span>
+          </td>
         </tr>
       </table>
       <% card.items.each do |item| %>
         <div data-controller="item" data-item-id="<%= item.id %>" class="d-inline">
           <button data-action="click->item#check" type="button" class="m-1 btn btn-<%= item.score > 0.0 ? 'primary' : 'danger' %>">
             <%= item.title %>
-            (<span data-target="item.count"><%= item.count_for(@client_date) %></span>)
+            (<span data-target="item.count"><%= @counts[item.id] %></span>)
           </button>
         </div>
       <% end %>

@@ -7,6 +7,11 @@ class CardsController < ApplicationController
   def index
     @cards = Card.includes(:items).all
     @client_date = Date.parse(params[:client_date])
+    @counts = PeriodSummary.where(date: @client_date).inject({}) do |hash, summary|
+      hash[summary.item_id] = summary.count
+      hash
+    end
+
     render layout: false
   end
 
