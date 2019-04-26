@@ -13,9 +13,9 @@ class CheckController < ApplicationController
         card: {
           id: item.card_id,
           scores: {
-            today: format(item.card.score_today(date)),
-            yesterday: format(item.card.score_yesterday(date)),
-            recent_average: format(item.card.recent_average(date))
+            today: item.card.score_today(date),
+            yesterday: item.card.score_yesterday(date),
+            recent_average: item.card.recent_average(date)
           }
         }
       }
@@ -28,9 +28,5 @@ class CheckController < ApplicationController
   def check_params
     # whitelist params
     params.permit(:item_id, :client_date)
-  end
-
-  def format(val)
-    "%0.2f" % val.round(2)
   end
 end

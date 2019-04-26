@@ -1,9 +1,14 @@
 const application = window.Stimulus.Application.start();
 
 application.register(
-  "deck",
+  "cards",
   class extends window.Stimulus.Controller {
+    static get targets() {
+      return ["deck"];
+    }
+
     connect() {
+      this.checkForRefresh();
       this.startRefreshing();
     }
 
@@ -14,18 +19,16 @@ application.register(
     startRefreshing() {
       this.refreshTimer = setInterval(() => {
         this.checkForRefresh();
-      }, 15000);
+      }, 5000);
     }
 
     checkForRefresh() {
       const d = new Date();
       const today = d.toLocaleDateString();
 
-      console.log("deck checking...");
-
       if (today !== this.data.get("refreshed")) {
         this.data.set("refreshed", today);
-        console.log("date has changed fetching a refresh TODO");
+        this.refresh(today);
       }
     }
 
@@ -33,6 +36,14 @@ application.register(
       if (this.refreshTimer) {
         clearInterval(this.refreshTimer);
       }
+    }
+
+    refresh(date) {
+      fetch(`/cards/?client_date=${date}`, {}).then(response => {
+        response.text().then(html => {
+          this.deckTarget.innerHTML = html;
+        });
+      });
     }
   }
 );
