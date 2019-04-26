@@ -1,27 +1,21 @@
 class Item < ApplicationRecord
   belongs_to :card
-  has_many :checks, dependent: :destroy
   has_many :period_summaries, dependent: :destroy
 
-  def count_today
-    period_summaries.where(date: Date.today).first&.count || 0
+  def count_for(date)
+    period_summaries.where(date: date).first&.count || 0
   end
 
-  def count_yesterday
-    period_summaries.where(date: (Date.today-1)).first&.count || 0
-  end
-
-  def create_check(client_date)
-    checks.create!
+  def add_check(client_date)
     today = Date.parse(client_date)
-    count = count_on(today)
-
     existing_summary = period_summaries.where(date: today).first
 
     if existing_summary
+      new_count = existing_summary.count + 1
+
       existing_summary.update(
-        count: count,
-        score: count * score
+        count: new_count,
+        score: new_count * score
       )
     else
       period_summaries.create(
@@ -29,18 +23,10 @@ class Item < ApplicationRecord
         year: today.year,
         month: today.month,
         week: today.cweek,
-        count: count,
-        score: count * score,
+        count: 1,
+        score: score,
         card_id: card.id
       )
     end
-  end
-
-  private
-
-  def count_on(date)
-    checks.where(
-      created_at: (date.beginning_of_day..date.end_of_day)
-    ).count
   end
 end
