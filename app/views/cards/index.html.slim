@@ -1,0 +1,28 @@
+- @cards.each do |card|
+  .card.m-3
+    .card-body
+      h1.card-title= card.title
+      table.table.table-sm
+        tr
+          td Today
+          td.text-right
+            span.today.card-subtitle.text-muted id="card-#{card.id}-score-today"
+              = card.score_today(@client_date)
+        tr
+          td Yesterday
+          td.text-right
+            span.card-subtitle.text-muted id="card-#{card.id}-score-yesterday"
+              = card.score_yesterday(@client_date)
+        tr
+          td Recent average
+          td.text-right
+            span.card-subtitle.text-muted id="card-#{card.id}-recent-average"
+              = card.recent_average(@client_date)
+      - card.items.each do |item|
+        .d-inline data-controller="item" data-item-id="#{item.id}"
+          button class=("m-1 btn btn-#{item.score > 0.0 ? 'primary' : 'danger'}") data-action="click->item#check" type="button"
+            = item.title
+            | &nbsp;(
+            span data-target="item.count"
+              = @counts[item.id] || 0
+            | )
