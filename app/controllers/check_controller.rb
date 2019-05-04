@@ -12,6 +12,7 @@ class CheckController < ApplicationController
         count: item.count_for(date),
         card: {
           id: item.card_id,
+          rewards: item.card.rewards(date),
           scores: {
             today: item.card.score_today(date),
             yesterday: item.card.score_yesterday(date),
