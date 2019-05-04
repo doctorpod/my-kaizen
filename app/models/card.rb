@@ -3,21 +3,25 @@ class Card < ApplicationRecord
   has_many :period_summaries, dependent: :destroy
 
   AVG_RANGE = 10
+  REWARD = '&#10004;'
 
   def score_today(date)
-    format recent_scores(date)[date] || 0.0
+    @score_today ||= format score_today_float(date)
   end
 
   def score_yesterday(date)
-    format recent_scores(date)[date-1] || 0.0
+    @score_yesterday ||= format score_yesterday_float(date)
   end
 
   def recent_average(date)
-    recent = recent_scores(date).select { |dt, _score| dt < (date - 1) }
-    return "0.00" if recent.empty?
+    @recent_average ||= format recent_average_float(date)
+  end
 
-    total = recent.inject(0) { |memo, (_date, score)| memo += score }
-    format total.to_f / recent.size
+  def rewards(date)
+    [].tap do |out|
+      out << REWARD if score_today_float(date) > score_yesterday_float(date)
+      out << REWARD if score_today_float(date) > recent_average_float(date)
+    end
   end
 
   private
@@ -30,6 +34,23 @@ class Card < ApplicationRecord
       .sum(:score)
   end
 
+  def score_today_float(date)
+    @score_today_float ||= (recent_scores(date)[date] || 0.0)
+  end
+
+  def score_yesterday_float(date)
+    @score_yesterday_float ||= (recent_scores(date)[date-1] || 0.0)
+  end
+
+  def recent_average_float(date)
+    @recent_average_float ||= begin
+      recent = recent_scores(date).select { |dt, _score| dt < (date - 1) }
+      return 0.0 if recent.empty?
+
+      total = recent.inject(0) { |memo, (_date, score)| memo += score }
+      total.to_f / recent.size
+    end
+  end
   def format(num)
     "%.2f" % num
   end

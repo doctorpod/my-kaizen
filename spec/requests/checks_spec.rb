@@ -27,6 +27,10 @@ RSpec.describe 'Checks API', type: :request do
             count: 1,
             card: {
               id: card.id,
+              rewards: [
+                Card::REWARD,
+                Card::REWARD
+              ],
               scores: {
                 today: '1.00',
                 yesterday: '0.00',
