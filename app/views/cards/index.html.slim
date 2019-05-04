@@ -16,7 +16,10 @@
         .d-inline data-controller="item" data-item-id="#{item.id}"
           button class=("m-1 btn btn-#{item.score > 0.0 ? 'primary' : 'danger'}") data-action="click->item#check" type="button"
             = item.title
-            | &nbsp;(
-            span data-target="item.count"
-              = @counts[item.id] || 0
-            | )
+            | &nbsp;
+            span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
+            span data-target="item.countWrapper"
+              | (
+              span data-target="item.count"
+                = @counts[item.id] || 0
+              | )

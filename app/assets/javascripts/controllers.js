@@ -52,11 +52,14 @@ application.register(
   "item",
   class extends window.Stimulus.Controller {
     static get targets() {
-      return ["count"];
+      return ["count", "countWrapper", "spinner"];
     }
 
     check() {
       const item_id = parseInt(this.data.get("id"));
+
+      this.spinnerTarget.classList.toggle("hide", false);
+      this.countWrapperTarget.classList.toggle("hide", true);
 
       fetch("/checks", {
         method: "POST",
@@ -86,6 +89,9 @@ application.register(
           $(`#card${data.item.card.id} .rewards`).html(
             data.item.card.rewards.join("")
           );
+
+          this.spinnerTarget.classList.toggle("hide", true);
+          this.countWrapperTarget.classList.toggle("hide", false);
         });
     }
   }
