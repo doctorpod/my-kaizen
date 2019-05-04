@@ -3,7 +3,7 @@ class Card < ApplicationRecord
   has_many :period_summaries, dependent: :destroy
 
   AVG_RANGE = 10
-  REWARD = '&#10004;'
+  REWARD = '&#x1F44D;' # Thumbs up
 
   def score_today(date)
     @score_today ||= format score_today_float(date)
