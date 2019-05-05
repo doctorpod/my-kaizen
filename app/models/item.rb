@@ -2,6 +2,8 @@ class Item < ApplicationRecord
   belongs_to :card
   has_many :period_summaries, dependent: :destroy
 
+  default_scope { order(score: :desc) }
+
   def count_for(date)
     period_summaries.where(date: date).first&.count || 0
   end

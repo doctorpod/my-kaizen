@@ -31,8 +31,6 @@ end
 
 card = Card.create(title: 'Eat healthy', goal: 10)
 [
-  { title: 'Beans', score: 1 },
-  { title: 'Cruc', score: 1 },
   { title: 'Berries', score: 1 },
   { title: 'Fruits', score: 1 },
   { title: 'Veg', score: 1 },
@@ -50,22 +48,22 @@ card = Card.create(title: 'Eat healthy', goal: 10)
   { title: 'Sweet', score: -1 },
   { title: 'Salty', score: -1 },
   { title: 'Poultry', score: -1 },
-  { title: 'Red meat', score: -1 }
+  { title: 'Red meat', score: -1 },
+  { title: 'Beans', score: 1 },
+  { title: 'Cruc', score: 1 }
 ].each do |item|
   card.items.create(item)
 end
 
 card = Card.create(title: 'Maintain calorie deficit', goal: 0)
 [
-  { title: 'BJJ class 1h', score: 3.50 },
-  { title: 'Phys job 30 min', score: 1.50 },
-  { title: 'Run 10 min', score: 1.30 },
-  { title: 'Gen act 25 min', score: 1.05 },
-
   { title: 'Biscuit/Wine', score: -1.00 },
   { title: 'Takeaway/Rest', score: -3.00 },
   { title: 'Snack', score: -3.50 },
-  { title: 'Sweet', score: -4.50 }
+  { title: 'Sweet', score: -4.50 },
+
+  { title: 'BJJ class 1h', score: 3.50 },
+  { title: 'Phys job 30 min', score: 1.50 },
 ].each do |item|
   card.items.create(item)
 end

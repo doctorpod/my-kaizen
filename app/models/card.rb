@@ -5,6 +5,8 @@ class Card < ApplicationRecord
   AVG_RANGE = 10
   REWARD = '&#x1F44D;' # Thumbs up
 
+  default_scope { order(:title) }
+
   def score_today(date)
     @score_today ||= format score_today_float(date)
   end

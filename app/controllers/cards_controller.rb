@@ -5,7 +5,7 @@ class CardsController < ApplicationController
   # Called by Stimulus cards controller on page load and
   # at turn of midnight
   def index
-    @cards = Card.includes(:items).all
+    @cards = Card.includes(:items)
     @client_date = Date.parse(params[:client_date])
     @counts = PeriodSummary.where(date: @client_date).inject({}) do |hash, summary|
       hash[summary.item_id] = summary.count
