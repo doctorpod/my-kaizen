@@ -1,5 +1,17 @@
 const application = window.Stimulus.Application.start();
 
+function handleHttpErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
+
+function displayError(error) {
+  $("#errorMessage .techMessage").html(error.message);
+  $("#errorMessage").modal();
+}
+
 application.register(
   "cards",
   class extends window.Stimulus.Controller {
@@ -39,11 +51,17 @@ application.register(
     }
 
     refresh(date) {
-      fetch(`/cards/?client_date=${date}`, {}).then(response => {
-        response.text().then(html => {
-          this.deckTarget.innerHTML = html;
+      fetch(`/cards/?client_date=${date}`, {})
+        .then(handleHttpErrors)
+        .then(response => {
+          response.text().then(html => {
+            this.deckTarget.innerHTML = html;
+          });
+        })
+        .catch(error => {
+          $("#deck-spinner .spinner-border").hide();
+          displayError(error);
         });
-      });
     }
   }
 );
@@ -71,6 +89,7 @@ application.register(
           client_date: new Date().toLocaleDateString()
         })
       })
+        .then(handleHttpErrors)
         .then(response => response.json())
         .then(data => {
           this.countTarget.innerHTML = data.item.count;
@@ -92,6 +111,11 @@ application.register(
 
           this.spinnerTarget.classList.toggle("hide", true);
           this.countWrapperTarget.classList.toggle("hide", false);
+        })
+        .catch(error => {
+          this.spinnerTarget.classList.toggle("hide", true);
+          this.countWrapperTarget.classList.toggle("hide", false);
+          displayError(error);
         });
     }
   }
