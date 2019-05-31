@@ -50,7 +50,7 @@ class Card < ApplicationRecord
       return 0.0 if recent.empty?
 
       total = recent.inject(0) { |memo, (_date, score)| memo += score }
-      total.to_f / recent.size
+      total.to_f / AVG_RANGE
     end
   end
   def format(num)
