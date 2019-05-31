@@ -7,6 +7,9 @@
         span.rewards
           = card.rewards(@client_date).join.html_safe
 
+      p.card-text
+        = card.description
+
       table.table.table-sm.scores
         = render 'score_row', label: 'Today', id: card.id, klass: 'score-today', score: card.score_today(@client_date)
         = render 'score_row', label: 'Yesterday', id: card.id, klass: 'score-yesterday', score: card.score_yesterday(@client_date)
@@ -23,3 +26,8 @@
               span data-target="item.count"
                 = @counts[item.id] || 0
               | )
+
+      div
+        = link_to 'edit card', edit_card_path(card)
+
+= link_to 'new card', new_card_path

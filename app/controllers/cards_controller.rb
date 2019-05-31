@@ -15,10 +15,37 @@ class CardsController < ApplicationController
     render layout: false
   end
 
+  # GET /cards/new
+  def new
+    @card = Card.new
+  end
+
+  # POST /cards
+  def create
+    Card.create(card_params)
+    redirect_to controller: :home, action: :index
+  end
+
+  # GET /cards/:id/edit
+  def edit
+    @card = Card.find(params[:id])
+  end
+
+  # PUT /card/:id
+  def update
+    card = Card.find(params[:id])
+    card.update(card_params)
+    redirect_to controller: :home, action: :index
+  end
+
   private
 
   def check_params
     # whitelist params
     params.permit(:client_date)
+  end
+
+  def card_params
+    params.require(:card).permit(:title, :description)
   end
 end
