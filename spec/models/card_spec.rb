@@ -36,8 +36,8 @@ RSpec.describe Card, type: :model do
         expect(subject.score_yesterday(date)).to eq('0.00')
       end
 
-      it 'average is 3' do
-        expect(subject.reload.recent_average(date)).to eq('3.00')
+      it 'average is 0.6 (6/10)' do
+        expect(subject.reload.recent_average(date)).to eq('0.60')
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe Card, type: :model do
     before do
       PeriodSummary.create!(date: date - 0, score: todays_score, card_id: subject.id, item_id: item1.id)
       PeriodSummary.create!(date: date - 1, score: 2, card_id: subject.id, item_id: item1.id)
-      PeriodSummary.create!(date: date - 2, score: 4, card_id: subject.id, item_id: item1.id)
+      PeriodSummary.create!(date: date - 2, score: 40, card_id: subject.id, item_id: item1.id)
     end
 
     context 'todays score smaller than yesterday and average' do
