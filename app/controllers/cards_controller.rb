@@ -38,6 +38,13 @@ class CardsController < ApplicationController
     redirect_to controller: :home, action: :index
   end
 
+  # DELETE /card/:id
+  def destroy
+    card = Card.find(params[:id])
+    card.destroy
+    redirect_to controller: :home, action: :index
+  end
+
   private
 
   def check_params

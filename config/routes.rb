@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :cards
-  post 'checks', to: 'check#create'
-  get 'home/index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post '/checks', to: 'check#create'
+  get '/home/index'
+
+  # Needed to overcome the issue of dropdowns intermitently not working on reloading of home page
+  put '/cancel', to: redirect('/', status: 302)
+
   root 'home#index'
 end
