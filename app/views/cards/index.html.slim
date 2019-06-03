@@ -1,33 +1,37 @@
-- @cards.each do |card|
-  .card.m-3 id="card#{card.id}"
-    .card-body
-      h1.card-title
-        = card.title
-        | &nbsp;
-        span.rewards
-          = card.rewards(@client_date).join.html_safe
+.card-deck
+  - @cards.each do |card|
+    .card.m-3.bg-light id="card#{card.id}"
+      .card-body
+        .dropdown.float-right
+          button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            | Actions
 
-      p.card-text
-        = card.description
+          .dropdown-menu.dropdown-menu-right
+            = link_to 'Edit card', edit_card_path(card), class: 'dropdown-item'
+            = link_to 'Delete card', card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
 
-      table.table.table-sm.scores
-        = render 'score_row', label: 'Today', id: card.id, klass: 'score-today', score: card.score_today(@client_date)
-        = render 'score_row', label: 'Yesterday', id: card.id, klass: 'score-yesterday', score: card.score_yesterday(@client_date)
-        = render 'score_row', label: 'Recent average', id: card.id, klass: 'recent-average', score: card.recent_average(@client_date)
+        h2.card-title
+          = card.title
+          | &nbsp;
+          span.rewards
+            = card.rewards(@client_date).join.html_safe
 
-      - card.items.each do |item|
-        .d-inline data-controller="item" data-item-id="#{item.id}"
-          button class=("m-1 btn btn-#{item.score > 0.0 ? 'primary' : 'danger'}") data-action="click->item#check" type="button"
-            = item.title
-            | &nbsp;
-            span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
-            span data-target="item.countWrapper"
-              | (
-              span data-target="item.count"
-                = @counts[item.id] || 0
-              | )
+        p.card-text
+          = card.description
 
-      div
-        = link_to 'edit card', edit_card_path(card)
+        table.table.table-sm.scores
+          = render 'score_row', label: 'Today', id: card.id, klass: 'score-today', score: card.score_today(@client_date)
+          = render 'score_row', label: 'Yesterday', id: card.id, klass: 'score-yesterday', score: card.score_yesterday(@client_date)
+          = render 'score_row', label: 'Recent average', id: card.id, klass: 'recent-average', score: card.recent_average(@client_date)
 
-= link_to 'new card', new_card_path
+        - card.items.each do |item|
+          .d-inline data-controller="item" data-item-id="#{item.id}"
+            button class=("m-1 btn btn-#{item.score > 0.0 ? 'primary' : 'danger'}") data-action="click->item#check" type="button"
+              = item.title
+              | &nbsp;
+              span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
+              span data-target="item.countWrapper"
+                | (
+                span data-target="item.count"
+                  = @counts[item.id] || 0
+                | )
