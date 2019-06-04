@@ -10,11 +10,11 @@
             = link_to 'Edit card', edit_card_path(card), class: 'dropdown-item'
             = link_to 'Delete card', card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
 
-        h2.card-title
+        h2.card-title.pt-2.mb-0
           = card.title
-          | &nbsp;
-          span.rewards
-            = card.rewards(@client_date).join.html_safe
+
+        div.rewards
+          = card.rewards(@client_date).join.html_safe
 
         p.card-text
           = card.description
