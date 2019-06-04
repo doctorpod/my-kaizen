@@ -2,13 +2,14 @@
   - @cards.each do |card|
     .card.m-3.bg-light id="card#{card.id}"
       .card-body
-        .dropdown.float-right
-          button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            | Actions
+        .clearfix
+          .dropdown.float-right
+            button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              | Actions
 
-          .dropdown-menu.dropdown-menu-right
-            = link_to 'Edit card', edit_card_path(card), class: 'dropdown-item'
-            = link_to 'Delete card', card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to 'Edit card', edit_card_path(card), class: 'dropdown-item'
+              = link_to 'Delete card', card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
 
         h2.card-title.pt-2.mb-0
           = card.title
@@ -24,14 +25,38 @@
           = render 'score_row', label: 'Yesterday', id: card.id, klass: 'score-yesterday', score: card.score_yesterday(@client_date)
           = render 'score_row', label: 'Recent average', id: card.id, klass: 'recent-average', score: card.recent_average(@client_date)
 
-        - card.items.each do |item|
-          .d-inline data-controller="item" data-item-id="#{item.id}"
-            button class=("m-1 btn btn-#{item.score > 0.0 ? 'primary' : 'danger'}") data-action="click->item#check" type="button"
-              = item.title
-              | &nbsp;
-              span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
-              span data-target="item.countWrapper"
-                | (
-                span data-target="item.count"
-                  = @counts[item.id] || 0
-                | )
+        .accordion.items id="items-#{card.id}"
+          - card.items.each do |item|
+            .card.item.mb-0.text-white data-controller="item" data-item-id="#{item.id}" class=("item-#{item.score > 0.0 ? 'positive' : 'negative'}")
+
+              #headingOne.card-header.py-0 data-target="#collapse-#{item.id}" data-toggle="collapse"
+                h2.float-left
+                  button.btn.text-white.p-0 aria-controls="collapseOne" aria-expanded="true" type="button"
+                    = item.title
+                div.text-white.mt-2.float-right
+                  span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
+                  span data-target="item.count"
+                    = @counts[item.id] || 0
+
+              .collapse aria-labelledby="headingOne" data-parent="#items-#{card.id}" id="collapse-#{item.id}"
+                .card-body
+                  .clearfix
+                    .dropdown.float-right
+                      button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        | Actions
+
+                      .dropdown-menu.dropdown-menu-right
+                        = link_to 'Edit item', edit_card_path(card), class: 'dropdown-item disabled'
+                        = link_to 'Delete item', card_path(card), class: 'dropdown-item disabled', method: :delete, data: { confirm: 'Are you sure?' }
+
+                  .card-text.text-dark
+                    p
+                      | Score &nbsp;
+                      = item.score
+                      | &nbsp; Max. &nbsp;
+                      = item.max
+                    p
+                      = item.description
+
+                  button.btn.btn-lg.btn-dark data-action="click->item#check" type="button"
+                    | Check
