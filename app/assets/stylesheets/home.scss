@@ -2,30 +2,37 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$bg-colour: rgb(229, 242, 254);
-$safe-color: rgb(1, 176, 198);
-$danger-color: rgb(238, 111, 66);
+$bg-colour: #efefef;
+$pos-color: #078898;
+$pos-color-light: #66b9bf;
+$neg-color: #e37222;
+$neg-color-light: #eeaa7b;
 
-.btn-primary,
-.btn-primary:hover {
-  background-color: $safe-color;
-  border-color: $safe-color;
-  color: #ffffff;
-}
-
-.btn-danger,
-.btn-danger:hover {
-  background-color: $danger-color;
-  border-color: $danger-color;
-  color: #ffffff;
-}
-
-.card {
+.card-deck > .card {
   min-width: 18em;
 }
 
-.card-title {
-  clear: both;
+.items {
+  .item-positive {
+    .card-header {
+      background-color: $pos-color;
+      color: black;
+    }
+    .card-body {
+      background-color: $pos-color-light;
+      color: black;
+    }
+  }
+  .item-negative {
+    .card-header {
+      background-color: $neg-color;
+      color: black;
+    }
+    .card-body {
+      background-color: $neg-color-light;
+      color: black;
+    }
+  }
 }
 
 .rewards {
