@@ -23,7 +23,7 @@ class CardsController < ApplicationController
   # POST /cards
   def create
     Card.create(card_params)
-    redirect_to controller: :home, action: :index
+    redirect_to controller: :dashboard, action: :index
   end
 
   # GET /cards/:id/edit
@@ -35,14 +35,14 @@ class CardsController < ApplicationController
   def update
     card = Card.find(params[:id])
     card.update(card_params)
-    redirect_to controller: :home, action: :index
+    redirect_to controller: :dashboard, action: :index
   end
 
   # DELETE /cards/:id
   def destroy
     card = Card.find(params[:id])
     card.destroy
-    redirect_to controller: :home, action: :index
+    redirect_to controller: :dashboard, action: :index
   end
 
   private

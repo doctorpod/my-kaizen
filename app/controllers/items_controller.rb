@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   # POST /items
   def create
     Item.create(item_params)
-    redirect_to controller: :home, action: :index
+    redirect_to controller: :dashboard, action: :index
   end
 
   # GET /items/:id/edit
@@ -20,14 +20,14 @@ class ItemsController < ApplicationController
   def update
     item = Item.find(params[:id])
     item.update(item_params)
-    redirect_to controller: :home, action: :index
+    redirect_to controller: :dashboard, action: :index
   end
 
   # DELETE /items/:id
   def destroy
     item = Item.find(params[:id])
     item.destroy
-    redirect_to controller: :home, action: :index
+    redirect_to controller: :dashboard, action: :index
   end
 
   private
