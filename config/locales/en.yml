@@ -30,4 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  edit_card: Edit card
+  edit_item: Edit item
+  delete_card: Delete card
+  delete_item: Delete item
+  new_card: Add card
+  new_item: Add item

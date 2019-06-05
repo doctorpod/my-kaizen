@@ -1,0 +1,17 @@
+= form_for @item do |f|
+  = f.hidden_field :card_id
+  .form-group
+    = f.text_field :title, placeholder: 'Title', class: 'form-control'
+
+  .form-group
+    = f.text_area :description, placeholder: 'Description', class: 'form-control'
+
+  .form-group
+    = f.text_field :score, placeholder: 'Score', class: 'form-control'
+
+  .form-group
+    = f.text_field :max, placeholder: 'Max', class: 'form-control'
+
+  .form-group
+    = f.submit 'Save', class: 'btn btn-primary mr-2'
+    = link_to 'Cancel', '/cancel', class: 'btn btn-secondary', method: :put

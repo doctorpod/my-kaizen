@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :cards
+  resources :items
   post '/checks', to: 'check#create'
   get '/home/index'
 

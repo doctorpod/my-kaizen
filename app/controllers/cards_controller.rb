@@ -31,14 +31,14 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
   end
 
-  # PUT /card/:id
+  # PUT /cards/:id
   def update
     card = Card.find(params[:id])
     card.update(card_params)
     redirect_to controller: :home, action: :index
   end
 
-  # DELETE /card/:id
+  # DELETE /cards/:id
   def destroy
     card = Card.find(params[:id])
     card.destroy

@@ -8,8 +8,9 @@
               | Actions
 
             .dropdown-menu.dropdown-menu-right
-              = link_to 'Edit card', edit_card_path(card), class: 'dropdown-item'
-              = link_to 'Delete card', card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to t(:edit_card), edit_card_path(card), class: 'dropdown-item'
+              = link_to t(:delete_card), card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to t(:new_item), new_item_path(card_id: card.id), class: 'dropdown-item'
 
         h2.card-title.pt-2.mb-0
           = card.title
@@ -46,8 +47,8 @@
                         | Actions
 
                       .dropdown-menu.dropdown-menu-right
-                        = link_to 'Edit item', edit_card_path(card), class: 'dropdown-item disabled'
-                        = link_to 'Delete item', card_path(card), class: 'dropdown-item disabled', method: :delete, data: { confirm: 'Are you sure?' }
+                        = link_to t(:edit_item), edit_item_path(item), class: 'dropdown-item'
+                        = link_to t(:delete_item), item_path(item), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
 
                   .card-text.text-dark
                     p
