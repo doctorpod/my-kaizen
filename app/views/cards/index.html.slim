@@ -1,63 +1,18 @@
-.card-deck
-  - @cards.each do |card|
-    .card.m-3.bg-light id="card#{card.id}"
-      .card-body
-        .clearfix
-          .dropdown.float-right
-            button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-              | Actions
+/! Modal
+#errorMessage.modal.fade aria-hidden="true" aria-labelledby="exampleModalCenterTitle" role="dialog" tabindex="-1"
+  .modal-dialog.modal-dialog-centered role="document"
+    .modal-content
+      .modal-header
+        h5#exampleModalCenterTitle.modal-title Dang! Looks like something went wrong.
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+      .modal-body
+        | Here are the gory details in nerd language:
+        br
+        span.techMessage
+      .modal-footer
+        button.btn.btn-secondary data-dismiss="modal" type="button"  Close
 
-            .dropdown-menu.dropdown-menu-right
-              = link_to t(:edit_card), edit_card_path(card), class: 'dropdown-item'
-              = link_to t(:delete_card), card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
-              = link_to t(:new_item), new_item_path(card_id: card.id), class: 'dropdown-item'
-
-        h2.card-title.pt-2.mb-0
-          = card.title
-
-        div.rewards
-          = card.rewards(@client_date).join.html_safe
-
-        p.card-text
-          = card.description
-
-        table.table.table-sm.scores
-          = render 'score_row', label: 'Today', id: card.id, klass: 'score-today', score: card.score_today(@client_date)
-          = render 'score_row', label: 'Yesterday', id: card.id, klass: 'score-yesterday', score: card.score_yesterday(@client_date)
-          = render 'score_row', label: 'Recent average', id: card.id, klass: 'recent-average', score: card.recent_average(@client_date)
-
-        .accordion.items id="items-#{card.id}"
-          - card.items.each do |item|
-            .card.item.mb-0.text-white data-controller="item" data-item-id="#{item.id}" class=("item-#{item.score > 0.0 ? 'positive' : 'negative'}")
-
-              #headingOne.card-header.py-0 data-target="#collapse-#{item.id}" data-toggle="collapse"
-                h2.float-left
-                  button.btn.text-white.p-0 aria-controls="collapseOne" aria-expanded="true" type="button"
-                    = item.title
-                div.text-white.mt-2.float-right
-                  span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
-                  span data-target="item.count"
-                    = @counts[item.id] || 0
-
-              .collapse aria-labelledby="headingOne" data-parent="#items-#{card.id}" id="collapse-#{item.id}"
-                .card-body
-                  .clearfix
-                    .dropdown.float-right
-                      button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        | Actions
-
-                      .dropdown-menu.dropdown-menu-right
-                        = link_to t(:edit_item), edit_item_path(item), class: 'dropdown-item'
-                        = link_to t(:delete_item), item_path(item), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
-
-                  .card-text.text-dark
-                    p
-                      | Score &nbsp;
-                      = item.score
-                      | &nbsp; Max. &nbsp;
-                      = item.max
-                    p
-                      = item.description
-
-                  button.btn.btn-lg.btn-dark data-action="click->item#check" type="button"
-                    | Check
+div data-controller="cards" data-cards-refreshed="" data-target="cards.deck"
+  div#deck-spinner.d-flex.justify-content-center
+    span.spinner-border.text-secondary.m-5

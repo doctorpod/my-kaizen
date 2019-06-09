@@ -51,7 +51,7 @@ application.register(
     }
 
     refresh(date) {
-      fetch(`/cards/?client_date=${date}`, {})
+      fetch(`/cards/deck?client_date=${date}`, {})
         .then(handleHttpErrors)
         .then(response => {
           response.text().then(html => {
