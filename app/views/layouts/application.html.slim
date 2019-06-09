@@ -20,8 +20,13 @@ html
       button.navbar-toggler aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button"
         span.navbar-toggler-icon
       #navbarNavAltMarkup.collapse.navbar-collapse
-        .navbar-nav
-          = link_to t(:new_card), new_card_path, class: 'nav-item nav-link'
+        - if session[:userinfo].present?
+          ul.navbar-nav.mr-auto
+            li = link_to t(:new_card), new_card_path, class: 'nav-item nav-link'
+            li = link_to t(:sign_out), logout_path, class: 'nav-item nav-link'
+
+          span.navbar-text
+            = session[:userinfo]['info']['name']
 
     .container-fluid
       = yield

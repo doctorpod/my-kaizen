@@ -1,0 +1,5 @@
+.jumbotron.mt-3
+  h1.display-4 = t(:app_name)
+  p.lead = t(:app_description)
+  hr.my-4/
+  = link_to "#{t(:sign_in)}/#{t(:sign_up)}", '/auth/auth0', class: 'btn btn-primary btn-lg'
