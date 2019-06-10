@@ -30,6 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  app_description: Making your life better one action at a time
+  app_name: Better than yesterday
   edit_card: Edit card
   edit_item: Edit item
   delete_card: Delete card
