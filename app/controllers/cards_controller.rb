@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  skip_before_action :verify_authenticity_token, except: :index
+  include Secured
+  skip_before_action :verify_authenticity_token, only: :deck
 
   # GET /cards/deck?client_date=dd/mm/yyyy
   # Called by Stimulus cards controller on page load and
