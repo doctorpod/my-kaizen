@@ -3,12 +3,14 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   subject { card.items.create!(title: 'Foo', score: 0.5) }
 
-  let(:card) { Card.create!(title: 'Bobbins') }
+  let(:uid) { '123' }
+  let(:profile) { Profile.create(uid: uid) }
+  let(:card) { profile.cards.create!(title: 'Bobbins') }
   let(:client_date) { '15/04/2019' }
 
   describe '#add_check' do
     before do
-      subject.add_check(client_date)
+      subject.add_check(client_date, profile.id)
     end
 
     describe 'period summary' do
@@ -36,7 +38,7 @@ RSpec.describe Item, type: :model do
     end
 
     context 'subsequent invocation on same day' do
-      before { subject.add_check(client_date) }
+      before { subject.add_check(client_date, profile.id) }
 
       describe 'period summary' do
         let(:period_summary) { subject.period_summaries.first }

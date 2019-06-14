@@ -2,10 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Auth0Controller, type: :controller do
   describe '#callback' do
-    before { get :callback }
+    let(:uid) { '123' }
+
+    before do
+      request.env['omniauth.auth'] = { 'uid' => uid }
+      get :callback
+    end
 
     it 'sets user info' do
       expect(session.keys).to include('userinfo')
+    end
+
+    it 'creates profile' do
+      expect(Profile.count).to eq(1)
+      expect(Profile.first.uid).to eq(uid)
     end
 
     it 'redirects to /cards' do

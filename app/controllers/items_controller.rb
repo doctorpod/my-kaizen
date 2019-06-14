@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   # GET /items/new?card_id=1
   def new
-    card = Card.find(params[:card_id])
+    card = profile.cards.find(params[:card_id])
     @item = card.items.new
   end
 

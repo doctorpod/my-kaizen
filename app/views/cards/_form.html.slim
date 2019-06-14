@@ -1,4 +1,5 @@
 = form_for @card do |f|
+  = f.hidden_field :profile_id
   .form-group
     = f.text_field :title, placeholder: 'Title', class: 'form-control'
 

@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe CheckController, type: :controller do
+  let(:uid) { '123' }
+  let!(:profile) { Profile.create(uid: uid) }
+
   describe 'POST /checks' do
-    let(:card) { Card.create!(title: 'My card') }
+    let(:card) { profile.cards.create!(title: 'My card') }
     let(:item) { card.items.create!(description: 'Foo bar') }
 
     let(:attributes) do
@@ -19,7 +22,7 @@ RSpec.describe CheckController, type: :controller do
 
     context 'Signed in' do
       before do
-        session[:userinfo] = { uid: 'bosh123' }
+        session[:userinfo] = { 'uid' => uid }
         post :create, params: attributes
       end
 

@@ -12,4 +12,8 @@ module Secured
   def uid
     session[:userinfo]['uid']
   end
+
+  def profile
+    @profile ||= Profile.where(uid: uid).first
+  end
 end

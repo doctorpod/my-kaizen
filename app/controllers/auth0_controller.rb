@@ -4,6 +4,9 @@ class Auth0Controller < ApplicationController
     # and the IdP
     session[:userinfo] = request.env['omniauth.auth']
 
+    # Create this profile if it doesn't already exist
+    Profile.find_or_create_by(uid: uid)
+
     # Redirect to the URL you want after successful auth
     redirect_to cards_url
   end
@@ -39,5 +42,9 @@ class Auth0Controller < ApplicationController
 
   def client_id
     ENV['OAUTH_CLIENT_ID']
+  end
+
+  def uid
+    session[:userinfo]['uid']
   end
 end

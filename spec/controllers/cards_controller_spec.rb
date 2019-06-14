@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe CardsController, type: :controller do
-  let(:card) { Card.create! }
+  let(:uid) { '123' }
+  let!(:profile) { Profile.create(uid: uid) }
+  let(:card) { profile.cards.create! }
   let(:title) { 'My title' }
 
   let(:card_params) do
@@ -21,7 +23,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'Signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
         get :index
       end
 
@@ -39,7 +41,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'Signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
         get :deck, params: { client_date: '15/04/2019' }
       end
 
@@ -57,7 +59,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
         get :new
       end
 
@@ -75,7 +77,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
       end
 
       it 'creates card' do
@@ -98,7 +100,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
         get :edit, params: {id: card.id}
       end
 
@@ -116,7 +118,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
         put :update, params: {id: card.id}.merge(card_params)
       end
 
@@ -140,7 +142,7 @@ RSpec.describe CardsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => uid }
       end
 
       it 'deletes item' do

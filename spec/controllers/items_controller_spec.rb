@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ItemsController, type: :controller do
-  let(:card) { Card.create! }
+  let(:uid) { '123' }
+  let!(:profile) { Profile.create(uid: uid) }
+  let(:card) { profile.cards.create! }
   let(:item) { card.items.create! }
   let(:title) { 'My item' }
 
@@ -24,7 +26,7 @@ RSpec.describe ItemsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => '123' }
         get :new, params: {card_id: card.id}
       end
 
@@ -42,7 +44,7 @@ RSpec.describe ItemsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => '123' }
       end
 
       it 'creates item' do
@@ -65,7 +67,7 @@ RSpec.describe ItemsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => '123' }
         get :edit, params: {id: item.id}
       end
 
@@ -83,7 +85,7 @@ RSpec.describe ItemsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => '123' }
         put :update, params: {id: item.id}.merge(item_params)
       end
 
@@ -107,7 +109,7 @@ RSpec.describe ItemsController, type: :controller do
 
     context 'signed in' do
       before do
-        session[:userinfo] = { uid: '123' }
+        session[:userinfo] = { 'uid' => '123' }
       end
 
       it 'deletes item' do

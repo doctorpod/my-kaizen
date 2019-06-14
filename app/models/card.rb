@@ -1,4 +1,5 @@
 class Card < ApplicationRecord
+  belongs_to :profile
   has_many :items, dependent: :destroy
   has_many :period_summaries, dependent: :destroy
 
