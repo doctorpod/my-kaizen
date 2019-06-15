@@ -25,6 +25,7 @@ html
             li = link_to t(:new_card), new_card_path, class: 'nav-item nav-link'
             li = link_to t(:sign_out), logout_path, class: 'nav-item nav-link'
 
+          li = link_to t(:help), help_path, class: 'nav-item nav-link'
           span.navbar-text
             = session[:userinfo]['info']['name']
 

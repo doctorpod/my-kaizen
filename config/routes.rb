@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/', to: 'home#index'
+  get '/help', to: 'home#help'
 
   get '/cards/deck', to: 'cards#deck'
   resources :cards
