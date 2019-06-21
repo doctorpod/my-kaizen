@@ -59,3 +59,14 @@
 
                   button.btn.btn-lg.btn-dark data-action="click->item#check" type="button"
                     | Check
+
+- if @cards.none?
+  .jumbotron.mt-3
+    h1.display-4
+      = t('no_cards_title')
+    p.lead
+      = t('no_cards_lead')
+    .list-group
+      = link_to t('suggest_read_help'), help_path, class: 'list-group-item list-group-item-action list-group-item-dark'
+      = link_to t('suggest_add_card'), new_card_path, class: 'list-group-item list-group-item-action list-group-item-dark'
+      = link_to t('suggest_starters'), starters_path, class: 'list-group-item list-group-item-action list-group-item-dark'

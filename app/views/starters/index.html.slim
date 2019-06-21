@@ -1,0 +1,10 @@
+- @starters['cards'].each_with_index do |card, i|
+  .jumbotron.mt-3
+    h1.display-5 = card['title']
+    p.lead = card['pitch']
+    hr.my-4/
+
+    = form_with url: starters_copy_path do |f|
+      = f.hidden_field :index, value: i
+      .form-group
+        = f.submit t(:starter_get), class: 'btn btn-primary mr-2'

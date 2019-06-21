@@ -20,12 +20,16 @@ html
       button.navbar-toggler aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button"
         span.navbar-toggler-icon
       #navbarNavAltMarkup.collapse.navbar-collapse
-        - if session[:userinfo].present?
-          ul.navbar-nav.mr-auto
+        ul.navbar-nav.mr-auto
+          - if session[:userinfo].present?
+            li = link_to t(:cards), cards_path, class: 'nav-item nav-link'
             li = link_to t(:new_card), new_card_path, class: 'nav-item nav-link'
+            li = link_to t(:starter_cards), starters_path, class: 'nav-item nav-link'
             li = link_to t(:sign_out), logout_path, class: 'nav-item nav-link'
 
           li = link_to t(:help), help_path, class: 'nav-item nav-link'
+
+        - if session[:userinfo].present?
           span.navbar-text
             = session[:userinfo]['info']['name']
 

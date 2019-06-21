@@ -23,7 +23,7 @@ Hence this app.
 
 ## Overview of the app
 
-This is a simple app. It has just two things: _items_, and _cards_. You get to create these yourself.
+This is a simple app. It has just two things: _items_, and _cards_. You get to create and tweak these yourself although we do provide some fairly generic starter cards to get you going.
 
 ### Item
 
@@ -41,7 +41,7 @@ A collection of related items. Cards allow you to group your items into logical 
 
 Each card has a summary in the form of the sum of all the scores of it's checked items for that day, compared to yesterday and the recent average.
 
-In addition, each card displays a reward in the form of up to two thumbs up emoticons, for beating yesterday's score, and the recent average score.
+In addition, each card displays a reward in the form of up to two thumbs-up emoticons, for beating yesterday's score, and the recent average score.
 
 Each card lists it's items, ordered by score, so high-scored green items appear first, and low-scored red items appear last.
 
@@ -79,4 +79,4 @@ As rule of thumb, I would suggest keeping the most positive score within a card 
 
 As an even more general rule of thumb, I would suggest keeping any score well within the range 10.0 to -10.0. If the sums of the scores for a day are too large, they tend to become less meaningful.
 
-There's always exceptions and an example might be where you're trying to use the scores to approximate to somethign real, such as calories.
+I think that's it. If you have any questions email me at [andy@andywhite.org](mailto:andy@andywhite.org).

@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   # Needed to overcome the issue of dropdowns intermitently not working on reloading of cards page
   put '/cancel', to: redirect('/cards', status: 302)
 
+  # For selecting & copying starter cards
+  get '/starters', to: 'starters#index'
+  post '/starters/copy', to: 'starters#copy'
+
   # Oauth routes
   get '/auth/oauth2/callback' => 'auth0#callback'
   get '/auth/failure' => 'auth0#failure'

@@ -104,4 +104,51 @@ RSpec.describe Card, type: :model do
       end
     end
   end
+
+  describe '.copy_starter' do
+    before do
+      described_class.copy_starter(starter_data, profile)
+    end
+
+    let(:starter_data) do
+      {
+        title: 'My starter',
+        pitch: 'A pitch',
+        description: 'A description',
+        items: [
+          {
+            title: 'Item 1 title',
+            description: 'Item description',
+            score: 1.0
+          },
+          {
+            title: 'Item 2 title',
+            description: 'Item description',
+            score: 1.5
+          }
+        ]
+      }.with_indifferent_access
+    end
+
+    context 'the copied card' do
+      let(:copied_card) do
+        Card.where(title: starter_data[:title]).first
+      end
+
+      it 'created on profile' do
+        expect(copied_card).not_to be_nil
+        expect(copied_card.profile).to eq(profile)
+      end
+
+      it 'concatenates pitch and description' do
+        expect(copied_card.description).to eq("A pitch\nA description")
+      end
+
+      it 'has the items' do
+        expect(copied_card.items.count).to eq(2)
+        expect(copied_card.items.map(&:title)).to include(starter_data[:items].first[:title])
+        expect(copied_card.items.map(&:title)).to include(starter_data[:items].last[:title])
+      end
+    end
+  end
 end

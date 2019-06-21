@@ -27,6 +27,21 @@ class Card < ApplicationRecord
     end
   end
 
+  def self.copy_starter(data, profile)
+    card = profile.cards.create!(
+      title: data['title'],
+      description: "#{data['pitch']}\n#{data['description']}"
+    )
+
+    data['items'].each do |item_data|
+      card.items.create!(
+        title: item_data['title'],
+        description: item_data['description'],
+        score: item_data['score']
+      )
+    end
+  end
+
   private
 
   def recent_scores(date)

@@ -1,0 +1,94 @@
+cards:
+  - title: Physical fitness
+    pitch: Stuff you can do to stay fit
+    description: One point is approx. 1 minute. Unless otherwise stated, each item is for 1 minute.
+    items:
+      - title: Run (5 mins)
+        description:
+        score: 5.0
+      - title: HIIT (3x25s)
+        description: High Intensity Interval Training.
+        score: 1.5
+      - title: Climb stairs
+        description:
+        score: 1.0
+      - title: Body weight exercises
+        description: Press-ups, pull-ups, sit-up etc
+        score: 1.0
+      - title: Yoga session (4m+)
+        description:
+        score: 4.0
+      - title: Stretching & flexibility
+        description:
+        score: 1.0
+  - title: Healthy eating
+    pitch: Loosley based on Dr Michael Greger's research. (https://nutritionfacts.org/)
+    description:
+    items:
+      - title: Beans & legumes
+        description: Beans, peas, chickpeas, lentils etc
+        score: 1.0
+      - title: Cruciferous vegetables
+        description: Cabbage, broccoli, rocket leaves
+        score: 1.0
+      - title: Berries
+        description:
+        score: 1.0
+      - title: Fruit
+        description:
+        score: 1.0
+      - title: Nuts & seeds
+        description:
+        score: 1.0
+      - title: Herbs & spices
+        description:
+        score: 1.0
+      - title: Flax seed
+        description:
+        score: 1.0
+      - title: Whole grains
+        description: Wholemeal flour, oats etc
+        score: 1.0
+      - title: Refined carbs
+        description: White breads, pastry, sponge cake etc
+        score: -1.0
+      - title: Dairy
+        description:
+        score: -1.0
+      - title: Sugary foods
+        description: Sweets, chocolate etc
+        score: -1.0
+      - title: Salty foods
+        description: Crisps, chips etc
+        score: -1.0
+      - title: Meat
+        description: White & red meats
+        score: -1.5
+  - title: Mental wellbeing
+    pitch: A collection of habits to keep your mind on the straight and narrow.
+    description:
+    items:
+      - title: Speak to a stranger
+        description: You say something, they reply.
+        score: 1.5
+      - title: Converse w/acquaintance
+        description: A proper, two-way conversation with someone you've met before. Excludes close family, daily conversations should happen with these anyway!
+        score: 1.2
+      - title: Meditate (10m+)
+        description:
+        score: 1.0
+      - title: Get outdoors (10m+)
+        description:
+        score: 1.0
+      - title: Get in nature (10m+)
+        description: Get out into a natural environment. We're talking proper greenery here
+        score: 1.0
+      - title: Break procrastination
+        description: Start something you've been putting off
+        score: 1.0
+      - title: Compliment someone
+        description: But it MUST be genuine
+        score: 1.0
+      - title: Mindless tech distractions
+        description: You know. Crappy Youtube videos, endless Facebook scrolling, spending ages online or on your smartphone with no real goal or as an unwelcome and time wasting addendum to a real task.
+        score: -1.0
