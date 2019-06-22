@@ -1,4 +1,5 @@
 class Card < ApplicationRecord
+  belongs_to :profile
   has_many :items, dependent: :destroy
   has_many :period_summaries, dependent: :destroy
 
@@ -23,6 +24,21 @@ class Card < ApplicationRecord
     [].tap do |out|
       out << REWARD if score_today_float(date) > score_yesterday_float(date)
       out << REWARD if score_today_float(date) > recent_average_float(date)
+    end
+  end
+
+  def self.copy_starter(data, profile)
+    card = profile.cards.create!(
+      title: data['title'],
+      description: "#{data['pitch']}\n#{data['description']}"
+    )
+
+    data['items'].each do |item_data|
+      card.items.create!(
+        title: item_data['title'],
+        description: item_data['description'],
+        score: item_data['score']
+      )
     end
   end
 

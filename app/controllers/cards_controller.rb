@@ -1,13 +1,14 @@
 class CardsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  include Secured
+  skip_before_action :verify_authenticity_token, only: :deck
 
-  # GET /cards/?client_date=dd/mm/yyyy
+  # GET /cards/deck?client_date=dd/mm/yyyy
   # Called by Stimulus cards controller on page load and
   # at turn of midnight
-  def index
-    @cards = Card.includes(:items)
+  def deck
+    @cards = profile.cards.includes(:items)
     @client_date = Date.parse(params[:client_date])
-    @counts = PeriodSummary.where(date: @client_date).inject({}) do |hash, summary|
+    @counts = profile.period_summaries.where(date: @client_date).inject({}) do |hash, summary|
       hash[summary.item_id] = summary.count
       hash
     end
@@ -17,32 +18,32 @@ class CardsController < ApplicationController
 
   # GET /cards/new
   def new
-    @card = Card.new
+    @card = profile.cards.new
   end
 
   # POST /cards
   def create
-    Card.create(card_params)
-    redirect_to controller: :home, action: :index
+    profile.cards.create(card_params)
+    redirect_to cards_url
   end
 
   # GET /cards/:id/edit
   def edit
-    @card = Card.find(params[:id])
+    @card = profile.cards.find(params[:id])
   end
 
   # PUT /cards/:id
   def update
-    card = Card.find(params[:id])
+    card = profile.cards.find(params[:id])
     card.update(card_params)
-    redirect_to controller: :home, action: :index
+    redirect_to cards_url
   end
 
   # DELETE /cards/:id
   def destroy
-    card = Card.find(params[:id])
+    card = profile.cards.find(params[:id])
     card.destroy
-    redirect_to controller: :home, action: :index
+    redirect_to cards_url
   end
 
   private

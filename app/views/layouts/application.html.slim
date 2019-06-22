@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title Better than yesterday
+    title = t(:app_name)
     = csrf_meta_tags
     = csp_meta_tag
     /! Bootstrap CSS
@@ -16,12 +16,22 @@ html
 
   body
     nav.navbar.navbar-expand-lg.navbar-dark.bg-secondary
-      a.navbar-brand href="/" Better than yesterday
+      a.navbar-brand href="/" = t(:app_name)
       button.navbar-toggler aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button"
         span.navbar-toggler-icon
       #navbarNavAltMarkup.collapse.navbar-collapse
-        .navbar-nav
-          = link_to t(:new_card), new_card_path, class: 'nav-item nav-link'
+        ul.navbar-nav.mr-auto
+          - if session[:userinfo].present?
+            li = link_to t(:cards), cards_path, class: 'nav-item nav-link'
+            li = link_to t(:new_card), new_card_path, class: 'nav-item nav-link'
+            li = link_to t(:starter_cards), starters_path, class: 'nav-item nav-link'
+            li = link_to t(:sign_out), logout_path, class: 'nav-item nav-link'
+
+          li = link_to t(:help), help_path, class: 'nav-item nav-link'
+
+        - if session[:userinfo].present?
+          span.navbar-text
+            = session[:userinfo]['info']['name']
 
     .container-fluid
       = yield

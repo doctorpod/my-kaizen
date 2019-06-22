@@ -1,10 +1,11 @@
 class CheckController < ApplicationController
+  include Secured
   skip_before_action :verify_authenticity_token
 
   # POST /checks
   def create
     item = Item.find(params[:item_id])
-    item.add_check(params[:client_date])
+    item.add_check(params[:client_date], profile.id)
     date = Date.parse(params[:client_date])
     render json: {
       item: {

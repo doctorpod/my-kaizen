@@ -1,0 +1,72 @@
+.card-deck
+  - @cards.each do |card|
+    .card.m-3.bg-light id="card#{card.id}"
+      .card-body
+        .clearfix
+          .dropdown.float-right
+            button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              | Actions
+
+            .dropdown-menu.dropdown-menu-right
+              = link_to t(:edit_card), edit_card_path(card), class: 'dropdown-item'
+              = link_to t(:delete_card), card_path(card), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to t(:new_item), new_item_path(card_id: card.id), class: 'dropdown-item'
+
+        h2.card-title.pt-2.mb-0
+          = card.title
+
+        div.rewards
+          = card.rewards(@client_date).join.html_safe
+
+        p.card-text
+          = card.description
+
+        table.table.table-sm.scores
+          = render 'score_row', label: 'Today', id: card.id, klass: 'score-today', score: card.score_today(@client_date)
+          = render 'score_row', label: 'Yesterday', id: card.id, klass: 'score-yesterday', score: card.score_yesterday(@client_date)
+          = render 'score_row', label: 'Recent average', id: card.id, klass: 'recent-average', score: card.recent_average(@client_date)
+
+        .accordion.items id="items-#{card.id}"
+          - card.items.each do |item|
+            .card.item.mb-0.text-white data-controller="item" data-item-id="#{item.id}" class=("item-#{item.score > 0.0 ? 'positive' : 'negative'}")
+
+              #headingOne.card-header.py-0 data-target="#collapse-#{item.id}" data-toggle="collapse"
+                h2.float-left
+                  button.btn.text-white.p-0 aria-controls="collapseOne" aria-expanded="true" type="button"
+                    = item.title
+                div.text-white.mt-2.float-right
+                  span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
+                  span data-target="item.count"
+                    = @counts[item.id] || 0
+
+              .collapse aria-labelledby="headingOne" data-parent="#items-#{card.id}" id="collapse-#{item.id}"
+                .card-body
+                  .clearfix
+                    .dropdown.float-right
+                      button.btn.btn-secondary.btn-sm.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        | Actions
+
+                      .dropdown-menu.dropdown-menu-right
+                        = link_to t(:edit_item), edit_item_path(item), class: 'dropdown-item'
+                        = link_to t(:delete_item), item_path(item), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
+
+                  .card-text.text-dark
+                    p
+                      | Score &nbsp;
+                      = item.score
+                    p
+                      = item.description
+
+                  button.btn.btn-lg.btn-dark data-action="click->item#check" type="button"
+                    | Check
+
+- if @cards.none?
+  .jumbotron.mt-3
+    h1.display-4
+      = t('no_cards_title')
+    p.lead
+      = t('no_cards_lead')
+    .list-group
+      = link_to t('suggest_read_help'), help_path, class: 'list-group-item list-group-item-action list-group-item-dark'
+      = link_to t('suggest_add_card'), new_card_path, class: 'list-group-item list-group-item-action list-group-item-dark'
+      = link_to t('suggest_starters'), starters_path, class: 'list-group-item list-group-item-action list-group-item-dark'

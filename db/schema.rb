@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_181056) do
+ActiveRecord::Schema.define(version: 2019_06_10_102252) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2019_04_26_181056) do
     t.integer "goal_period"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "profile_id"
+    t.index ["profile_id"], name: "index_cards_on_profile_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -44,8 +46,17 @@ ActiveRecord::Schema.define(version: 2019_04_26_181056) do
     t.integer "card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "profile_id"
     t.index ["card_id", "date"], name: "index_period_summaries_on_card_id_and_date"
     t.index ["item_id", "date"], name: "index_period_summaries_on_item_id_and_date", unique: true
+    t.index ["profile_id"], name: "index_period_summaries_on_profile_id"
+  end
+
+  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_profiles_on_uid", unique: true
   end
 
 end

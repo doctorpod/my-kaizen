@@ -8,7 +8,7 @@ class Item < ApplicationRecord
     period_summaries.where(date: date).first&.count || 0
   end
 
-  def add_check(client_date)
+  def add_check(client_date, profile_id)
     today = Date.parse(client_date)
     existing_summary = period_summaries.where(date: today).first
 
@@ -27,7 +27,8 @@ class Item < ApplicationRecord
         week: today.cweek,
         count: 1,
         score: score,
-        card_id: card.id
+        card_id: card.id,
+        profile_id: profile_id
       )
     end
   end

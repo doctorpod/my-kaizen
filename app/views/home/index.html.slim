@@ -1,18 +1,8 @@
-/! Modal
-#errorMessage.modal.fade aria-hidden="true" aria-labelledby="exampleModalCenterTitle" role="dialog" tabindex="-1"
-  .modal-dialog.modal-dialog-centered role="document"
-    .modal-content
-      .modal-header
-        h5#exampleModalCenterTitle.modal-title Dang! Looks like something went wrong.
-        button.close aria-label="Close" data-dismiss="modal" type="button"
-          span aria-hidden="true"  &times;
-      .modal-body
-        | Here are the gory details in nerd language:
-        br
-        span.techMessage
-      .modal-footer
-        button.btn.btn-secondary data-dismiss="modal" type="button"  Close
-
-div data-controller="cards" data-cards-refreshed="" data-target="cards.deck"
-  div#deck-spinner.d-flex.justify-content-center
-    span.spinner-border.text-secondary.m-5
+.jumbotron.mt-3
+  h1.display-4 = t(:app_name)
+  p.lead = t(:app_description)
+  hr.my-4/
+  - if session[:userinfo]
+    = link_to "#{t(:cards)}", cards_path, class: 'btn btn-primary btn-lg'
+  - else
+    = link_to "#{t(:sign_in)}/#{t(:sign_up)}", '/auth/auth0', class: 'btn btn-primary btn-lg'
