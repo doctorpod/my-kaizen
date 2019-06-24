@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   resources :items
 
-  post '/checks', to: 'check#create'
+  put '/checks/increment', to: 'check#increment'
+  put '/checks/decrement', to: 'check#decrement'
 
   # Needed to overcome the issue of dropdowns intermitently not working on reloading of cards page
   put '/cancel', to: redirect('/cards', status: 302)
