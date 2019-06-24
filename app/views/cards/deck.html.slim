@@ -30,16 +30,16 @@
           - card.items.each do |item|
             .card.item.mb-0.text-white data-controller="item" data-item-id="#{item.id}" class=("item-#{item.score > 0.0 ? 'positive' : 'negative'}")
 
-              #headingOne.card-header.py-0 data-target="#collapse-#{item.id}" data-toggle="collapse"
+              .card-header.py-0 data-target="#collapse-#{item.id}" data-toggle="collapse" id="item-#{item.id}-heading"
                 h2.float-left
                   button.btn.text-white.p-0 aria-controls="collapseOne" aria-expanded="true" type="button"
                     = item.title
                 div.text-white.mt-2.float-right
                   span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
                   span data-target="item.count"
-                    = @counts[item.id] || 0
+                    = @counts[item.id] || '-'
 
-              .collapse aria-labelledby="headingOne" data-parent="#items-#{card.id}" id="collapse-#{item.id}"
+              .collapse aria-labelledby="item-#{item.id}-heading" data-parent="#items-#{card.id}" id="collapse-#{item.id}"
                 .card-body
                   .clearfix
                     .dropdown.float-right
@@ -49,6 +49,8 @@
                       .dropdown-menu.dropdown-menu-right
                         = link_to t(:edit_item), edit_item_path(item), class: 'dropdown-item'
                         = link_to t(:delete_item), item_path(item), class: 'dropdown-item', method: :delete, data: { confirm: 'Are you sure?' }
+                        button.dropdown-item data-action="click->item#uncheck" type="button" data-target="item.uncheck" class="#{@counts.key?(item.id) ? '' : 'hide'}"
+                          | Uncheck
 
                   .card-text.text-dark
                     p

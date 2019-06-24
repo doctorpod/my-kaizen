@@ -70,16 +70,25 @@ application.register(
   "item",
   class extends window.Stimulus.Controller {
     static get targets() {
-      return ["count", "spinner"];
+      return ["count", "spinner", "uncheck"];
     }
 
     check() {
+      this.adjust_check("/checks/increment")
+    }
+
+    uncheck() {
+      this.adjust_check("/checks/decrement")
+    }
+
+    adjust_check(path) {
       const item_id = parseInt(this.data.get("id"));
 
       this.spinnerTarget.classList.toggle("hide", false);
+      this.countTarget.classList.toggle("hide", true);
 
-      fetch("/checks", {
-        method: "POST",
+      fetch(path, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json"
         },
@@ -108,10 +117,18 @@ application.register(
             data.item.card.rewards.join("")
           );
 
+          if(this.countTarget.innerHTML === '-') {
+            this.uncheckTarget.classList.toggle("hide", true);
+          } else {
+            this.uncheckTarget.classList.toggle("hide", false);
+          }
+
           this.spinnerTarget.classList.toggle("hide", true);
+          this.countTarget.classList.toggle("hide", false);
         })
         .catch(error => {
           this.spinnerTarget.classList.toggle("hide", true);
+          this.countTarget.classList.toggle("hide", false);
           displayError(error);
         });
     }

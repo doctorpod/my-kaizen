@@ -5,20 +5,15 @@ class Item < ApplicationRecord
   default_scope { order(score: :desc) }
 
   def count_for(date)
-    period_summaries.where(date: date).first&.count || 0
+    period_summaries.where(date: date).first&.count || '-'
   end
 
-  def add_check(client_date, profile_id)
+  def increment_check(client_date, profile_id)
     today = Date.parse(client_date)
-    existing_summary = period_summaries.where(date: today).first
+    found = found_summary(today)
 
-    if existing_summary
-      new_count = existing_summary.count + 1
-
-      existing_summary.update(
-        count: new_count,
-        score: new_count * score
-      )
+    if found
+      update_summary(found, found.count + 1)
     else
       period_summaries.create(
         date: today,
@@ -31,5 +26,28 @@ class Item < ApplicationRecord
         profile_id: profile_id
       )
     end
+  end
+
+  def decrement_check(client_date)
+    today = Date.parse(client_date)
+    found = found_summary(today)
+
+    if found
+      if found.count <= 1
+        found.delete
+      else
+        update_summary(found, found.count - 1)
+      end
+    end
+  end
+
+  private
+
+  def found_summary(today)
+    period_summaries.where(date: today).first
+  end
+
+  def update_summary(summary, new_count)
+    summary.update(count: new_count, score: new_count * score)
   end
 end
