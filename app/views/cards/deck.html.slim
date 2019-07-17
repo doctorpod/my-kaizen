@@ -2,9 +2,10 @@
   - @cards.each do |card|
     .card.bg-light id="card#{card.id}"
       .card-header id="cardHeading#{card.id}" role="button" data-toggle="collapse" data-target="#cardCollapse#{card.id}" aria-expanded="false" aria-controls="cardCollapse#{card.id}"
-        h3.card-title.mb-0 = card.title
-        div.rewards
-          = card.rewards(@client_date).join.html_safe
+        .clearfix
+          h1.card-title.mb-0.float-left = card.title
+          div.rewards.float-right
+            = card.rewards(@client_date).join.html_safe
 
       .collapse id="cardCollapse#{card.id}" aria-labelledby="cardHeading#{card.id}" data-parent="#deck"
         .card-body
