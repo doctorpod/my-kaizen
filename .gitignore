@@ -32,3 +32,7 @@
 
 .env
 .envrc
+
+.DS_Store
+
+.ruby-gemset
