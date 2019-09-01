@@ -4,10 +4,6 @@ class Item < ApplicationRecord
 
   default_scope { order('score DESC, title ASC') }
 
-  def count_for(date)
-    period_summaries.where(date: date).first&.count || '-'
-  end
-
   def increment_check(client_date, profile_id)
     today = Date.parse(client_date)
     found = found_summary(today)

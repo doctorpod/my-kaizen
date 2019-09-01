@@ -40,6 +40,7 @@ RSpec.describe CheckController, type: :controller do
             item: {
               id: item.id,
               count: 1,
+              recent_count: 1,
               card: {
                 id: card.id,
                 rewards: [
@@ -91,6 +92,7 @@ RSpec.describe CheckController, type: :controller do
             item: {
               id: item.id,
               count: '-',
+              recent_count: 0,
               card: {
                 id: card.id,
                 rewards: [],

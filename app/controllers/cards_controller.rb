@@ -8,11 +8,7 @@ class CardsController < ApplicationController
   def deck
     @cards = profile.cards.includes(:items)
     @client_date = Date.parse(params[:client_date])
-    @counts = profile.period_summaries.where(date: @client_date).inject({}) do |hash, summary|
-      hash[summary.item_id] = summary.count
-      hash
-    end
-
+    @counts = ItemStatsService.all(profile, @client_date)
     render layout: false
   end
 

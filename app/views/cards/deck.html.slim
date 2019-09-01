@@ -33,12 +33,14 @@
 
                 .card-header.py-0 data-target="#collapse-#{item.id}" data-toggle="collapse" id="item-#{item.id}-heading"
                   h2.float-left
-                    button.btn.text-white.p-0 aria-controls="collapseOne" aria-expanded="true" type="button"
+                    button.item-title.btn.text-white.text-left.p-0 aria-controls="collapseOne" aria-expanded="true" type="button"
                       = item.title
                   div.text-white.mt-2.float-right
-                    span.spinner-border.spinner-border-sm.hide data-target="item.spinner"
-                    span data-target="item.count"
-                      = @counts[item.id] || '-'
+                    div.spinner-border.spinner-border-sm.hide.float-right data-target="item.spinner"
+                    div.count.float-right data-target="item.count"
+                      = @counts[item.id] ? @counts[item.id][:today_count] : '-'
+                    div.popularity.float-right data-target="item.popularity"
+                      = popularity(@counts[item.id])
 
                 .collapse aria-labelledby="item-#{item.id}-heading" data-parent="#items-#{card.id}" id="collapse-#{item.id}"
                   .card-body
