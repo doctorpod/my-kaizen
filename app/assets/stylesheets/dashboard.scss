@@ -48,3 +48,21 @@ $neg-color-light: #eeaa7b;
 .hide {
   display: none;
 }
+
+.item-title {
+  width: 11em;
+}
+
+.count {
+  width: 1.5em;
+  text-align: right;
+}
+
+.popularity {
+  font-size: 0.7em;
+  padding-top: 0.4em;
+  width: 2em;
+  text-align: left;
+  font-weight: bold;
+  opacity: 0.5;
+}

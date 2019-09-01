@@ -70,7 +70,7 @@ application.register(
   "item",
   class extends window.Stimulus.Controller {
     static get targets() {
-      return ["count", "spinner", "uncheck"];
+      return ["popularity", "count", "spinner", "uncheck"];
     }
 
     check() {
@@ -101,6 +101,7 @@ application.register(
         .then(response => response.json())
         .then(data => {
           this.countTarget.innerHTML = data.item.count;
+          this.popularityTarget.innerHTML = this.popularity(data.item.recent_count);
           $(`#card${data.item.card.id} .score-today`).html(
             data.item.card.scores.today
           );
@@ -131,6 +132,15 @@ application.register(
           this.countTarget.classList.toggle("hide", false);
           displayError(error);
         });
+    }
+
+    popularity(val) {
+      if(val > 27) return("|||||");
+      if(val >  9) return("||||");
+      if(val >  3) return("|||");
+      if(val >  1) return("||");
+      if(val >  0) return("|");
+      return("");
     }
   }
 );
